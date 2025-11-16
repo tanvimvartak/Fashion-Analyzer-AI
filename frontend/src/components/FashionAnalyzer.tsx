@@ -89,7 +89,7 @@ const FashionAnalyzer = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        timeout: 30000,
+        timeout: 120000, // Increased to 120 seconds for image processing and dataset analysis
       })
 
       if (response.data.response) {
@@ -100,18 +100,29 @@ const FashionAnalyzer = () => {
     } catch (error) {
       console.error('Chat error:', error)
       
-      // Fallback response for network/server errors
-      let fallbackResponse = "I'm having trouble connecting to my analysis service right now. Here's some general fashion advice:\n\n"
+      let errorMessage = "I'm having trouble connecting to my analysis service right now."
       
-      if (userMessage.toLowerCase().includes('cute')) {
-        fallbackResponse += "**Cute Outfit Ideas! 🎀**\n\n• Pastel sweater + high-waisted jeans + white sneakers\n• Floral dress + denim jacket + ankle boots\n• Keep colors soft and add cute accessories!\n\nYou're going to look adorable! 💕"
-      } else if (userMessage.toLowerCase().includes('party')) {
-        fallbackResponse += "**Party Perfect! 🎉**\n\n• Sequin top + black pants + heels\n• Little black dress + statement jewelry\n• Bold makeup and confidence!\n\nDance the night away! ✨"
-      } else {
-        fallbackResponse += "**General Fashion Tips:**\n\n• Balance proportions (fitted + loose)\n• Stick to 2-3 colors max\n• Confidence is your best accessory!\n\nFeel free to ask more specific questions! 💕"
+      if (axios.isAxiosError(error)) {
+        if (error.code === 'ECONNABORTED') {
+          errorMessage += " The request timed out - fashion analysis can take a moment with images."
+        } else if (error.response?.status === 404) {
+          errorMessage += " The service appears to be unavailable."
+        } else if ((error.response?.status ?? 0) >= 500) {
+          errorMessage += " There's a server issue - please try again later."
+        }
       }
       
-      addMessage(fallbackResponse, 'bot')
+      errorMessage += " Here's some general fashion advice:\n\n"
+      
+      if (userMessage.toLowerCase().includes('cute')) {
+        errorMessage += "**Cute Outfit Ideas! 🎀**\n\n• Pastel sweater + high-waisted jeans + white sneakers\n• Floral dress + denim jacket + ankle boots\n• Keep colors soft and add cute accessories!\n\nYou're going to look adorable! 💕"
+      } else if (userMessage.toLowerCase().includes('party')) {
+        errorMessage += "**Party Perfect! 🎉**\n\n• Sequin top + black pants + heels\n• Little black dress + statement jewelry\n• Bold makeup and confidence!\n\nDance the night away! ✨"
+      } else {
+        errorMessage += "**General Fashion Tips:**\n\n• Balance proportions (fitted + loose)\n• Stick to 2-3 colors max\n• Confidence is your best accessory!\n\nFeel free to ask more specific questions! 💕"
+      }
+      
+      addMessage(errorMessage, 'bot')
     } finally {
       setIsLoading(false)
     }
