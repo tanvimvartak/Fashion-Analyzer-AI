@@ -23,7 +23,7 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = FastAPI(title="Fashion Analyzer AI API", version="1.0.0")
+app = FastAPI(title="Stylette - AI Fashion Stylist API", version="1.0.0")
 
 # CORS middleware
 app.add_middleware(
@@ -48,7 +48,7 @@ class ChatResponse(BaseModel):
 
 @app.get("/")
 async def root():
-    return {"message": "Fashion Analyzer AI API", "status": "running"}
+    return {"message": "Stylette - Your AI Fashion Stylist API", "status": "running", "version": "1.0.0"}
 
 @app.get("/health")
 async def health_check():
@@ -142,23 +142,42 @@ Be enthusiastic, helpful, and specific in your recommendations! Tailor your resp
             gemini_response = None
         
         if gemini_response:
-            # Enhance Gemini response with dataset information
-            enhanced_response = gemini_response + "\n\n**📊 Dataset-Powered Insights:**\n"
+            # Enhance Gemini response with semantic similarity insights FIRST
+            enhanced_response = gemini_response + "\n\n"
             
+            # Add semantic similarity section prominently
             if dataset_insights['similar_outfits']:
-                enhanced_response += f"• Found {len(dataset_insights['similar_outfits'])} similar styles in our collection\n"
-                for outfit in dataset_insights['similar_outfits'][:2]:
+                enhanced_response += "### 💎 Stylette Semantic Match Analysis\n"
+                enhanced_response += f"**Found {len(dataset_insights['similar_outfits'])} similar styles from your dataset:**\n\n"
+                
+                for i, outfit in enumerate(dataset_insights['similar_outfits'], 1):
+                    similarity_score = outfit.get('similarity_score', 0)
                     outfit_name = outfit['filename'].replace('.jpg', '').replace('_', ' ').title()
-                    enhanced_response += f"  - {outfit_name}\n"
+                    
+                    # Extract key features for explanation
+                    clothing_types = ', '.join(outfit.get('clothing_types', [])[:2])
+                    colors = ', '.join(outfit.get('colors', [])[:2])
+                    occasions = ', '.join(outfit.get('occasions', [])[:1])
+                    
+                    enhanced_response += f"**{i}. {outfit_name}** (Match Score: {similarity_score:.1%})\n"
+                    enhanced_response += f"   • Type: {clothing_types}\n"
+                    if colors:
+                        enhanced_response += f"   • Colors: {colors}\n"
+                    if occasions:
+                        enhanced_response += f"   • Occasion: {occasions}\n"
+                    enhanced_response += "\n"
+            
+            # Add other dataset insights
+            enhanced_response += "### 📊 Dataset-Powered Insights\n"
             
             if image_colors:
-                enhanced_response += f"• Detected colors: {', '.join(set(image_colors))}\n"
+                enhanced_response += f"• **Detected colors in your image:** {', '.join(set(image_colors))}\n"
             
             color_recs = dataset_insights['color_recommendations']
             if color_recs['status'] == 'success':
-                enhanced_response += f"• Color insights from {color_recs['total_profiles']} body profiles\n"
+                enhanced_response += f"• **Body profile insights:** Analyzed across {color_recs['total_profiles']} profiles\n"
             
-            enhanced_response += f"• Powered by {dataset_insights['dataset_stats']['total_fashion_images']} fashion images!"
+            enhanced_response += f"• **Powered by:** {dataset_insights['dataset_stats']['total_fashion_images']} fashion images in Stylette's collection\n"
             
             return ChatResponse(response=enhanced_response, status="success_with_datasets")
         else:
@@ -189,22 +208,38 @@ def get_enhanced_fallback_response_with_datasets(message: str, nlp_context: dict
     sentiment = nlp_context.get('sentiment', {}).get('overall_sentiment', 'neutral')
     entities = nlp_context.get('entities', {})
     
+    # Start with semantic matches if available (prominent display)
+    response = ""
+    if dataset_insights['similar_outfits']:
+        response += "### 💎 Stylette Semantic Match Analysis\n"
+        response += f"**Found {len(dataset_insights['similar_outfits'])} similar styles from your dataset:**\n\n"
+        
+        for i, outfit in enumerate(dataset_insights['similar_outfits'], 1):
+            similarity_score = outfit.get('similarity_score', 0)
+            outfit_name = outfit['filename'].replace('.jpg', '').replace('_', ' ').title()
+            
+            # Extract key features for explanation
+            clothing_types = ', '.join(outfit.get('clothing_types', [])[:2])
+            colors = ', '.join(outfit.get('colors', [])[:2])
+            occasions = ', '.join(outfit.get('occasions', [])[:1])
+            
+            response += f"**{i}. {outfit_name}** (Match Score: {similarity_score:.1%})\n"
+            response += f"   • Type: {clothing_types}\n"
+            if colors:
+                response += f"   • Colors: {colors}\n"
+            if occasions:
+                response += f"   • Occasion: {occasions}\n"
+            response += "\n"
+        response += "---\n\n"
+    
     # Build response based on intent with dataset enhancement
     if intent == 'outfit_advice':
-        response = "**Outfit Styling Advice (Dataset-Enhanced)! ✨**\n\n"
+        response += "**Outfit Styling Advice (Dataset-Enhanced)! ✨**\n\n"
         
         # Check for specific clothing items mentioned
         if entities.get('clothing_types'):
             items = ', '.join(entities['clothing_types'])
             response += f"I see you're asking about {items}! Here's what our fashion database suggests:\n\n"
-        
-        # Add dataset insights
-        if dataset_insights['similar_outfits']:
-            response += "**💎 Similar Styles in Our Collection:**\n"
-            for i, outfit in enumerate(dataset_insights['similar_outfits'][:3]):
-                outfit_name = outfit['filename'].replace('.jpg', '').replace('_', ' ').title()
-                response += f"{i+1}. {outfit_name}\n"
-            response += "\n"
         
         response += "**General Styling Rules:**\n"
         response += "• Balance proportions (fitted + loose)\n"
@@ -236,7 +271,7 @@ def get_enhanced_fallback_response_with_datasets(message: str, nlp_context: dict
             response += "\n"
             
     elif intent == 'color_matching':
-        response = "**Color Matching Guide (Dataset-Powered)! 🎨**\n\n"
+        response += "**Color Matching Guide (Dataset-Powered)! 🎨**\n\n"
         if entities.get('colors'):
             colors = entities['colors']
             response += f"Great question about {', '.join(colors)}!\n\n"
@@ -261,9 +296,9 @@ def get_enhanced_fallback_response_with_datasets(message: str, nlp_context: dict
     elif intent == 'occasion_dressing':
         occasions = entities.get('occasions', [])
         if occasions:
-            response = f"**Dressing for {', '.join(occasions).title()}! 👗**\n\n"
+            response += f"**Dressing for {', '.join(occasions).title()}! 👗**\n\n"
         else:
-            response = "**Occasion Dressing Guide (Dataset-Enhanced)! 👗**\n\n"
+            response += "**Occasion Dressing Guide (Dataset-Enhanced)! 👗**\n\n"
         
         # Add insights from similar outfits in dataset
         if dataset_insights['similar_outfits']:
@@ -283,7 +318,7 @@ def get_enhanced_fallback_response_with_datasets(message: str, nlp_context: dict
         response += "• **Date:** Something that makes you feel confident!\n\n"
         
     else:
-        response = get_fallback_response(message)
+        response += get_fallback_response(message)
         
         # Enhance with dataset stats
         response += "\n\n**💎 Our Fashion Database:**\n"
@@ -664,7 +699,7 @@ if __name__ == "__main__":
     host = os.getenv("HOST", "0.0.0.0")
     port = int(os.getenv("PORT", "8000"))
     
-    logger.info(f"🚀 Starting Fashion Analyzer API server...")
+    logger.info(f"✨ Starting Stylette - AI Fashion Stylist API...")
     logger.info(f"🌐 Server will be available at: http://{host}:{port}")
     logger.info(f"📚 API docs at: http://{host}:{port}/docs")
     logger.info(f"📁 Dataset path: {dataset_processor.base_path}")

@@ -245,6 +245,10 @@ class DatasetProcessor:
         self.color_analyzer = ColorAnalyzer()
         self.feature_extractor.color_analyzer = self.color_analyzer
         
+        # Initialize semantic indexing attributes
+        self.semantic_index = None
+        self.semantic_matrix = None
+        
         # Metadata cache path
         self.cache_dir = os.path.join(self.base_path, '.metadata_cache')
         self.metadata_cache_file = os.path.join(self.cache_dir, 'image_metadata.json')
@@ -316,6 +320,9 @@ class DatasetProcessor:
                 with open(self.metadata_cache_file, 'r') as f:
                     self.fashion_images_metadata = json.load(f)
                 logger.info(f"✅ Loaded {len(self.fashion_images_metadata)} images from cache")
+                
+                # Build semantic index from cached metadata
+                self._build_semantic_index()
                 return
             except Exception as e:
                 logger.warning(f"⚠️  Could not load cache: {e}. Rebuilding...")
@@ -552,18 +559,33 @@ class DatasetProcessor:
             query_features = self._build_query_vector(query_lower, user_image_colors)
             
             # Use semantic similarity with TF-IDF
-            if hasattr(self, 'semantic_index') and self.semantic_index is not None:
-                # Calculate cosine similarity with all indexed images
-                similarity_scores = cosine_similarity([query_features], self.semantic_matrix)[0]
-                
-                for idx, score in enumerate(similarity_scores):
-                    if score > 0.1:  # Threshold for relevance
-                        image_meta = self.fashion_images_metadata[idx].copy()
-                        image_meta['similarity_score'] = float(score)
-                        matches.append(image_meta)
+            if (hasattr(self, 'semantic_index') and self.semantic_index is not None and 
+                hasattr(self, 'semantic_matrix') and self.semantic_matrix is not None):
+                try:
+                    # Calculate cosine similarity with all indexed images
+                    similarity_scores = cosine_similarity([query_features], self.semantic_matrix)[0]
+                    
+                    for idx, score in enumerate(similarity_scores):
+                        if score > 0.1:  # Threshold for relevance
+                            image_meta = self.fashion_images_metadata[idx].copy()
+                            image_meta['similarity_score'] = float(score)
+                            matches.append(image_meta)
+                    
+                    logger.info(f"✅ Found {len(matches)} semantic matches for query: '{query_lower}'")
+                except Exception as e:
+                    logger.warning(f"⚠️  Error using semantic matrix, falling back to keyword matching: {e}")
+                    # Fallback to keyword-based matching
+                    for image_meta in self.fashion_images_metadata:
+                        similarity_score = self._calculate_keyword_similarity(
+                            query_lower, image_meta, user_image_colors
+                        )
+                        if similarity_score > 0:
+                            image_meta_copy = image_meta.copy()
+                            image_meta_copy['similarity_score'] = similarity_score
+                            matches.append(image_meta_copy)
             else:
                 # Fallback: keyword-based matching
-                logger.warning("⚠️  Semantic index not available, using keyword matching")
+                logger.info("ℹ️  Semantic index not available, using keyword matching")
                 for image_meta in self.fashion_images_metadata:
                     similarity_score = self._calculate_keyword_similarity(
                         query_lower, image_meta, user_image_colors
@@ -584,6 +606,11 @@ class DatasetProcessor:
     
     def _build_semantic_index(self):
         """Build TF-IDF semantic index for similarity search"""
+        # Skip if already built
+        if self.semantic_index is not None and self.semantic_matrix is not None:
+            logger.debug("✅ Semantic index already built, skipping rebuild")
+            return
+        
         try:
             if len(self.fashion_images_metadata) == 0:
                 logger.warning("⚠️  No metadata to index")
@@ -632,7 +659,15 @@ class DatasetProcessor:
         query_text = ' '.join(query_parts)
         
         if self.semantic_index:
-            return self.semantic_index.transform([query_text]).toarray()[0]
+            try:
+                vector = self.semantic_index.transform([query_text]).toarray()[0]
+                if len(vector) == 0:
+                    logger.warning(f"⚠️  Query vector is empty for: '{query_text}'")
+                    return np.array([])
+                return vector
+            except Exception as e:
+                logger.warning(f"⚠️  Query vector transformation failed: {e}")
+                return np.array([])
         else:
             return np.array([])
     

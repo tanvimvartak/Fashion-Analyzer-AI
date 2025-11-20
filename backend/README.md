@@ -1,12 +1,12 @@
-# Fashion Analyzer AI - Backend
+# Stylette - AI Fashion Stylist Backend
 
-## 🌟 Features
+## ✨ Features
 
-- **Gemini AI Integration**: Advanced image analysis and fashion recommendations
-- **Dataset Integration**: Uses your actual fashion datasets for enhanced recommendations
-- **NLP Analysis**: Natural language processing for understanding user queries
-- **Color Analysis**: Extract and analyze colors from uploaded images
-- **Fashion Matching**: Find similar outfits from your dataset collection
+- **Gemini AI Integration**: Advanced outfit analysis and personalized styling
+- **Dataset Integration**: Uses your actual fashion datasets for recommendations
+- **NLP Analysis**: Natural language processing for understanding style queries
+- **Color Analysis**: Real-time color extraction and analysis from images
+- **Smart Matching**: Find similar styles from your dataset collection
 
 ## 📊 Datasets Integrated
 
