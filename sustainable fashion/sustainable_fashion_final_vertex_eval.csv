@@ -1,0 +1,101 @@
+id,text,label
+1,A T-shirt made with certified organic cotton and natural dyes,sustainable
+2,Fast-fashion blouse with cheap synthetic fabric replaced every season,not_sustainable
+3,Locally produced wool sweater using eco-friendly farming methods,sustainable
+4,Jacket made from polyurethane-based faux leather with frequent replacements,not_sustainable
+5,Denim jeans created in a water-saving facility with recycled fibers,sustainable
+6,Fur-trimmed coat sourced from intensive animal farming,not_sustainable
+7,Hand-knitted cardigan using cruelty-free alpaca yarn,sustainable
+8,Plastic-based accessories shipped worldwide in single-use plastic packaging,not_sustainable
+9,"Linen pants dyed with low-impact, biodegradable pigments",sustainable
+10,Sweater made from virgin polyester with harmful solvent processes,not_sustainable
+11,Pesticide-free hemp turtleneck with minimal waste pattern cutting,sustainable
+12,Dress designed around micro-trends and disposed of after a few wears,not_sustainable
+13,Recycled cashmere scarf assembled in a solar-powered workshop,sustainable
+14,Synthetic lace blouse requiring monthly dry-cleaning with harsh chemicals,not_sustainable
+15,Sneakers crafted using upcycled denim and natural rubber soles,sustainable
+16,Vinyl-based raincoat that cracks easily and ends up in landfills,not_sustainable
+17,Simple crewneck tee produced in an ethical facility using living wage standards,sustainable
+18,Shorts containing regular PVC prints that emit toxins when burned,not_sustainable
+19,Baby romper sewn with GOTS-certified organic cotton and nickel-free snaps,sustainable
+20,Sequin jumpsuit made from new plastic materials and rarely recycled,not_sustainable
+21,"Hat woven from natural straw, finished without synthetic resins",sustainable
+22,Trendy top with chemical-laden glitter design that peels off quickly,not_sustainable
+23,Blazer tailored with responsibly sourced wool and biodegradable lining,sustainable
+24,Skirt featuring heavily bleached denim with large water footprints,not_sustainable
+25,Sneakers composed of pineapple-leaf fiber uppers and recycled foam soles,sustainable
+26,Vinyl handbag with petroleum-based dyes and no recycling plan,not_sustainable
+27,Silk blouse made from mulberry silk under fair labor practices,sustainable
+28,T-shirt requiring constant bleach treatments to maintain bright color,not_sustainable
+29,Hand-crafted sandals using vegetable-tanned leather and hand-stitching,sustainable
+30,Mass-produced T-shirts sold for extremely low prices with poor quality control,not_sustainable
+31,Denim jacket laundered using ozone technology to save water,sustainable
+32,Acrylic sweater that sheds microplastics during machine wash,not_sustainable
+33,Shirt created from bamboo viscose with closed-loop manufacturing,sustainable
+34,Trend-driven PVC boots with no end-of-life recycling plan,not_sustainable
+35,"Dress made from vintage silk saris, carefully repurposed to prevent waste",sustainable
+36,"Low-cost leggings prone to holes after a few wears, discarded quickly",not_sustainable
+37,Wool coat certified by the Responsible Wool Standard and lined with organic cotton,sustainable
+38,Fur stole produced in an unregulated industry with questionable welfare,not_sustainable
+39,"Shirt dress from preloved fabric roll-ends, sewn by a local tailor",sustainable
+40,Synthetic suede purse sprayed with solvents that pollute water streams,not_sustainable
+41,"Linen jumpsuit dyed with plant-based pigments, no harmful run-off",sustainable
+42,Swimsuit made from brand-new nylon yarn with no recycling streams available,not_sustainable
+43,Gloves produced using minimal water and solar energy in the factory,sustainable
+44,Embellished jacket with cheaply glued rhinestones that fall off in the wash,not_sustainable
+45,Vegan leather boots crafted from recycled materials and low-VOC adhesives,sustainable
+46,Sequin party dress with single-use wear intended for “fast” events,not_sustainable
+47,Merino wool base layer using ethical sheep-farming methods,sustainable
+48,Synthetic blend scarf that pills easily and ends up in trash within a season,not_sustainable
+49,Hand-loomed cotton cardigan with natural coconut shell buttons,sustainable
+50,Purse featuring bright neon inks and plastic embellishments,not_sustainable
+51,Activewear leggings made from post-consumer recycled plastic bottles,sustainable
+52,Classic coat relying on furs from animals kept in crowded conditions,not_sustainable
+53,"Shirt fashioned from hemp-linen mix, air-dried to cut energy use",sustainable
+54,Trendy tracksuit produced in sweatshops with no transparency reports,not_sustainable
+55,Dress carefully handcrafted from reclaimed lace curtains,sustainable
+56,Nylon windbreaker coated with harmful PFC chemicals for waterproofing,not_sustainable
+57,Button-up shirt cut from deadstock fabric with a timeless silhouette,sustainable
+58,Cheap plastic flip-flops that break easily and fill landfills,not_sustainable
+59,Satchel bag produced by artisans using upcycled leather remnants,sustainable
+60,Faux-fur vest using newly produced polyester fibers with high carbon cost,not_sustainable
+61,Minimalist sweater in organic cotton with natural coconut buttons,sustainable
+62,Heavily acid-washed jeans requiring toxic chemical processing,not_sustainable
+63,Long-sleeve top made in a fair trade cooperative from local cotton,sustainable
+64,Glittery festival outfit that leaves microplastics each time it’s washed,not_sustainable
+65,Lightweight bamboo-linen shorts with minimal packaging waste,sustainable
+66,High-fashion gown mass-produced overseas without labor certifications,not_sustainable
+67,Recycled denim backpack with water-based inks for graphics,sustainable
+68,Low-quality polyester socks losing shape and ending up as single-use items,not_sustainable
+69,Hemp-based slip-ons sewn with biodegradable thread and non-toxic glue,sustainable
+70,"Fast-fashion joggers with large logos, replaced each season",not_sustainable
+71,Sweater knit from upcycled yarn scraps reducing landfill waste,sustainable
+72,Leather jacket tanned using chromium with no proper waste disposal system,not_sustainable
+73,"Jeans featuring custom repairs, reinforced patches, and lifetime mend warranty",sustainable
+74,Garment dyed with formaldehyde-based chemicals that irritate skin,not_sustainable
+75,Canvas sneakers with jute soles and replaceable inner cushioning,sustainable
+76,Polyester-lurex dress flaking glitter particles into waterways,not_sustainable
+77,Yoga pants made with an organic cotton and spandex blend from ethical mills,sustainable
+78,Jacket sporting synthetic fur trim with no transparency on fiber sourcing,not_sustainable
+79,Denim skirt from a brand offering free repair services and take-back programs,sustainable
+80,Disposable festival wristbands made from petroleum-derived plastic,not_sustainable
+81,Elegant blouse woven from peace silk with no-harm caterpillar practices,sustainable
+82,Down jacket sourced from live-plucked feathers in unverified farms,not_sustainable
+83,Tailored trousers from a local tailor using leftover wool suiting fabrics,sustainable
+84,Sequined top containing phthalate-based coatings to keep sequins attached,not_sustainable
+85,"Scarf crocheted from naturally dyed, organic cotton yarn",sustainable
+86,"Backpack produced via cheap labor with no ecological offset, discarded quickly",not_sustainable
+87,"Wrap dress made with certified Tencel, requiring minimal water in production",sustainable
+88,Velvet pants with a chemical finish that rubs off on skin and pollutes laundry water,not_sustainable
+89,"Classic cardigan from responsibly sourced alpaca fiber, supporting local farmers",sustainable
+90,T-shirt featuring multiple plastic layers for 3D effect that peel over time,not_sustainable
+91,"Wide-leg pants from a closed-loop bamboo viscose process, dyed with safe pigments",sustainable
+92,Leggings intentionally designed for one-time workout events,not_sustainable
+93,"Merino beanie knitted by local artisans, using leftover yarn spools",sustainable
+94,Denim jacket torn and bleached extensively for a distressed look,not_sustainable
+95,Waterproof hiking boots with natural rubber soles and organic cotton lining,sustainable
+96,Fur-lined boots harvested in facilities lacking animal welfare standards,not_sustainable
+97,Simple slip dress upcycled from vintage curtains with minimal modifications,sustainable
+98,Synthetic throw blanket shedding significant microfiber pollution in each wash,not_sustainable
+99,Classic trench coat made from recycled polyester and a removable cotton lining,sustainable
+100,Polyester clubwear with heavy glitter prints and zero recycling options,not_sustainable
