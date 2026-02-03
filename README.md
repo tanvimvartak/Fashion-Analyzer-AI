@@ -1,6 +1,7 @@
 # Stylette - AI Fashion Stylist
 
 An intelligent personal fashion styling assistant that combines **Google Gemini AI** with **real dataset processing** to provide personalized styling recommendations based on your actual fashion image collection.
+Hey lets make some changes 
 
 ## 🌟 What is Stylette?
 
