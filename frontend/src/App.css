@@ -5,7 +5,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
@@ -26,14 +27,22 @@ html, body {
 
 /* Custom animations */
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-gradient {
   background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
+  animation: gradient 15s ease infinite;
 }
 
 /* Improved focus styles */
@@ -65,20 +74,23 @@ html, body {
 
 /* Mobile-specific optimizations */
 @media (max-width: 640px) {
+
   /* Better touch targets */
   button {
     min-height: 44px;
     min-width: 44px;
   }
-  
+
   /* Prevent zoom on focus */
-  input, textarea {
+  input,
+  textarea {
     font-size: 16px;
   }
 }
 
 /* Desktop-specific optimizations */
 @media (min-width: 640px) {
+
   /* Better hover states */
   .hover\:shadow-xl:hover {
     box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
@@ -92,14 +104,22 @@ html, body {
 
 /* Custom animations */
 @keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .animate-gradient {
   background-size: 200% 200%;
-  animation: gradient 3s ease infinite;
+  animation: gradient 15s ease infinite;
 }
 
 /* Improved focus styles */

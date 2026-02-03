@@ -147,19 +147,19 @@ const FashionAnalyzer = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full bg-white">
+    <div className="flex flex-col h-screen w-full bg-gradient-to-br from-rose-100 via-purple-100 to-sky-100 animate-gradient">
       {/* Header - Fixed height, responsive */}
-      <header className="flex-none text-white shadow-lg" style={{backgroundColor: '#4c1207'}}>
+      <header className="flex-none text-gray-800 shadow-sm bg-white/30 backdrop-blur-md border-b border-white/20">
         <div className="px-4 py-3 sm:px-6 sm:py-4">
           <div className="flex items-center justify-between">
             {/* Logo and Title */}
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/30">
-                <Sparkles className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center border border-white/50 shadow-sm">
+                <Sparkles className="w-5 h-5 text-pink-600" />
               </div>
               <div>
-                <h1 className="text-xl font-bold tracking-tight">Stylette</h1>
-                <p className="text-sm text-pink-100 hidden sm:block">Your AI Fashion Stylist</p>
+                <h1 className="text-xl font-bold tracking-tight text-gray-900">Stylette</h1>
+                <p className="text-sm text-gray-600 hidden sm:block">Your AI Fashion Stylist</p>
               </div>
             </div>
           </div>
@@ -213,7 +213,7 @@ const FashionAnalyzer = () => {
       </main>
 
       {/* Input Area - Fixed at bottom, responsive */}
-      <footer className="flex-none bg-white border-t border-gray-200 shadow-lg">
+      <footer className="flex-none bg-white/80 backdrop-blur-md border-t border-white/20 shadow-lg">
         <div className="px-4 py-4 sm:px-6">
           {/* Mobile Layout */}
           <div className="sm:hidden">
@@ -232,8 +232,7 @@ const FashionAnalyzer = () => {
                 <button
                   onClick={sendMessage}
                   disabled={isLoading || (!inputMessage.trim() && uploadedImages.length === 0)}
-                  className="w-12 h-12 text-white rounded-xl hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl"
-                  style={{backgroundColor: '#4c1207'}}
+                  className="w-12 h-12 text-white rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl bg-gradient-to-r from-pink-500 to-purple-600"
                 >
                   {isLoading ? (
                     <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -263,8 +262,7 @@ const FashionAnalyzer = () => {
               <button
                 onClick={sendMessage}
                 disabled={isLoading || (!inputMessage.trim() && uploadedImages.length === 0)}
-                className="px-6 py-3 text-white rounded-xl hover:opacity-80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl font-medium"
-                style={{backgroundColor: '#4c1207'}}
+                className="px-6 py-3 text-white rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center shadow-lg hover:shadow-xl font-medium bg-gradient-to-r from-pink-500 to-purple-600"
               >
                 {isLoading ? (
                   <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -276,9 +274,12 @@ const FashionAnalyzer = () => {
           </div>
 
           {/* Tips */}
-          <div className="mt-3 text-center">
+          <div className="mt-3 text-center space-y-1">
             <p className="text-xs text-gray-500">
               💡 Stylette Tip: Upload photos or ask questions like "Does this look good?" or "What should I wear?"
+            </p>
+            <p className="text-[10px] text-gray-400 font-medium tracking-wider">
+              CREATED BY RADHE
             </p>
           </div>
         </div>
