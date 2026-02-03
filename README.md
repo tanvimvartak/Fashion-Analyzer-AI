@@ -333,3 +333,5 @@ curl http://localhost:8000/api/dataset-stats
 - ✅ Provides personalized advice backed by real data
 
 **Your Fashion Analyzer is now powered by YOUR data! 🚀**
+
+Made with ❤️ by Stylette Team
